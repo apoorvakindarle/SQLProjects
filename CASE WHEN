@@ -1,5 +1,28 @@
--- 
+-- CHALLENGE 1
+SELECT 
+    CASE 
+        WHEN total_amount < 20000 THEN 'Low price tickets'
+        WHEN total_amount >= 20000 AND total_amount < 150000 THEN 'Mid price tickets'
+        ELSE 'High price tickets'
+    END AS ticket_category,
+    COUNT(*) AS ticket_count
+FROM bookings
+GROUP BY ticket_category;
 
+-- CHALLENGE 2
+select 
+case
+when extract (month from scheduled_departure) IN (12,1,2) then 'Winter'
+when extract (month from scheduled_departure) IN (3,4,5) then 'Spring'
+when extract(month from scheduled_departure) IN (6,7,8) then 'Summer'
+else 'Fall' 
+end as Seasons,
+count(*)
+from flights
+group by Seasons
+order by count(*);
+
+--  CHALLENGE 3
 SELECT
 title,
 CASE
@@ -15,4 +38,4 @@ WHEN rating IN ('PG','PG-13') OR length > 210 THEN 'Great rating or long (tier 1
 WHEN description LIKE '%Drama%' AND length>90 THEN 'Long drama (tier 2)'
 WHEN description LIKE '%Drama%' THEN 'Short drama (tier 3)'
 WHEN rental_rate<1 THEN 'Very cheap (tier 4)'
-END is not null
+END is not null;
